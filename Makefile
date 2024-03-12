@@ -3,14 +3,14 @@ all: clean dist build
 
 .PHONY: clean
 clean:
-  rm -rf ./dist
+	rm -rf ./dist
 
 .PHONY: build
 build:
-  go build -o ./dist/server ./cmd/server
+	go build -o ./dist/server ./cmd/server
 
 dist:
-  mkdir ./dist
+	mkdir ./dist
 
 DB_CONTAINER_NAME=vehicle-server-dev
 POSTGRES_USER=vehicle-server
