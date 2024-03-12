@@ -2,12 +2,21 @@ name: Bonjour
 on:
   - push
 jobs:
-  dire_bonjour:
+  container-test-job:
     runs-on: ubuntu-22.04
+    container:
+      image: ghcr.io/cicd-lectures/gitpod:latest
+      env:
+        NODE_ENV: development
+      ports:
+        - 80
+      volumes:
+        - my_docker_volume:/volume_mount
+      options: --cpus 1 | user=root
     steps:
-          
       - name: Check out repository code
         uses: actions/checkout@v4
+    
       - run: ls -l # Liste les fichier du répertoire courant
       - run: sudo apt install -y cowsay
 
