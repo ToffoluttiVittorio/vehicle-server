@@ -53,7 +53,7 @@ URL=?https://ensg.eu
 show_url:
   	echo $(URL)
 
-IMAGE?=ToffoluttiVittorio/vehicle-server
+IMAGE?=toffoluttivittorio/vehicle-server
 TAG?=dev
 
 .PHONY: package
