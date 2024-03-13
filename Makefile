@@ -20,8 +20,8 @@ DATABASE_URL=postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@localhost:5432/$(P
 
 .PHONY: dev
 dev:
-	go run ./cmd/server \
-		-listen-address=:8080 \
+	go run ./cmd/server 
+		-listen-address=:8080 
 		-database-url=$(DATABASE_URL)
 
 .PHONY: dev_db
@@ -29,10 +29,10 @@ dev_db:
 	docker container run \
 		--detach \
 		--rm \
-		--name=$(DB_CONTAINER_NAME) \
-		--env=POSTGRES_PASSWORD=$(POSTGRES_PASSWORD) \
-		--env=POSTGRES_USER=$(POSTGRES_USER) \
-		--env=POSTGRES_DB=$(POSTGRES_DB) \
+		--name=$(DB_CONTAINER_NAME) 
+		--env=POSTGRES_PASSWORD=$(POSTGRES_PASSWORD) 
+		--env=POSTGRES_USER=$(POSTGRES_USER) 
+		--env=POSTGRES_DB=$(POSTGRES_DB) 
 		--publish 5432:5432 \
 		postgis/postgis:16-3.4-alpine
 
@@ -46,3 +46,19 @@ unit_test:
 
 .PHONY: integration_test
 	go test -v -count=1 --tags=integration ./app
+
+URL=?https://ensg.eu
+
+.PHONY: show_url
+show_url:
+  	echo $(URL)
+
+IMAGE?=ToffoluttiVittorio/vehicle-server
+TAG?=dev
+
+.PHONY: all
+all: clean unit_test integration_test build package
+
+.PHONY: package
+package:
+  	docker build -t $(IMAGE):$(TAG) .
