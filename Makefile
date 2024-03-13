@@ -1,5 +1,5 @@
 .PHONY: all
-all: clean dist build
+all: clean unit_test integration_test build package
 
 .PHONY: clean
 clean:
@@ -56,9 +56,6 @@ show_url:
 IMAGE?=ToffoluttiVittorio/vehicle-server
 TAG?=dev
 
-.PHONY: all
-all: clean unit_test integration_test build package
-
 .PHONY: package
 package:
-  	docker build -t $(IMAGE):$(TAG) .
+	docker build -t $(IMAGE):$(TAG) .
